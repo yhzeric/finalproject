@@ -101,10 +101,14 @@ class NewFrame(wx.Frame):
     def OnPlot(self, e):
 
         people = f.readlines()
+        
+        fig = plt.figure()
+        
+        ax = fig.add_subplot(111)
 
         ind = np.arange(len(people))
         
-        width = 0.3
+        width = 0.05
         
         rect1 = ax.bar(ind,times,width,color = 'black')
 
