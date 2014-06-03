@@ -4,8 +4,13 @@ import wx
 
 import random
 
+import matplotlib.pyplot as plt
+
+import numpy as np
+
 f = open('finalproject.txt','r+')
 
+times = [ ]
 
 class NewFrame(wx.Frame):
     
@@ -26,6 +31,10 @@ class NewFrame(wx.Frame):
         self.BtnChoose.Bind(wx.EVT_BUTTON,self.OnChoose)
         
         self.BtnChoose.Show(False)
+        
+        self.BtnPlot = wx.Button(self.panel, label = "plot the times each one has been chosen", pos = (250,250))
+        
+        self.BtnPlot.Bind(wx.EVT_BUTTON,self.OnPlot)
         
         self.showresult = wx.TextCtrl(self.panel, pos = (200,100))
         
@@ -58,6 +67,8 @@ class NewFrame(wx.Frame):
         
         self.showresult.Show(True)
         
+        self.BtnPlot.Show(True)
+        
         self.reminder.Show(False)
         
         self.showinput.Show(False)
@@ -71,20 +82,37 @@ class NewFrame(wx.Frame):
         
         namesGiven = f.readlines()
         
-        namesChosen = random.choice(namesGiven)
+        for givennames in namesGiven:
+            times.append(0)
         
-        self.showresult.SetValue(namesChosen)
+        numberofnames = len(namesGiven)
+        
+        rankchosen = random.randint(0,numberofnames-1)
+        
+        namechosen = namesGiven[rankchosen]
+        
+        self.showresult.SetValue(namechosen)
 
-        for stuff in namesGiven:
+        times[rankchosen]+=1
 
-            int(stuff) = 0
-
-            if stuff == namesChosen:
-                int(stuff) += 1
-                print int(stuff)
+        print times[rankchosen]
 
 
+    def OnPlot(self, e):
 
+        people = f.readlines()
+
+        y_pos = np.arrange(len(people))
+
+        plt.barh(y_pos, times, align = 'center', alpha = 0.4)
+
+        plt.ysticks(y_pos, people)
+
+        plt.xlabel('times chosen')
+
+        plt.title('The times that the students have been chosen')
+
+        plt.show()
 
 app = wx.App(False)
 
