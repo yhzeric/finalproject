@@ -32,7 +32,7 @@ class NewFrame(wx.Frame):
         
         self.BtnChoose.Show(False)
         
-        self.BtnPlot = wx.Button(self.panel, label = "plot the times each one has been chosen", pos = (250,250))
+        self.BtnPlot = wx.Button(self.panel, label = "plot the times each one has been chosen", pos = (200,250))
         
         self.BtnPlot.Bind(wx.EVT_BUTTON,self.OnPlot)
         
@@ -102,15 +102,25 @@ class NewFrame(wx.Frame):
 
         people = f.readlines()
 
-        y_pos = np.arrange(len(people))
+        ind = np.arange(len(people))
+        
+        width = 0.3
+        
+        rect1 = ax.bar(ind,times,width,color = 'black')
 
-        plt.barh(y_pos, times, align = 'center', alpha = 0.4)
+        ax.set_ylim(0,10)
 
-        plt.ysticks(y_pos, people)
+        ax.set_ylabel('times chosen')
 
-        plt.xlabel('times chosen')
+        ax.set_title('number of times each individual is chosen')
 
-        plt.title('The times that the students have been chosen')
+        xTickMarks = people
+
+        ax.set_xticks(ind+width)
+
+        xtickNames = ax.set_xticklabels(xTickMarks)
+
+        plt.setp(xtickNames, rotation = 45, fontsize = 10)
 
         plt.show()
 
