@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 f = open('finalproject.txt','r+')
-
+/Users/admin/Desktop/Computer Programming Final Project/finalproject.py
 times = [ ]
 
 class NewFrame(wx.Frame):
