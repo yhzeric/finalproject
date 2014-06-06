@@ -44,6 +44,7 @@ class NewFrame(wx.Frame):
         
         self.namesinput = f.readlines()
         
+
         self.newstring = ""
         
         for currentnames in self.namesinput:
